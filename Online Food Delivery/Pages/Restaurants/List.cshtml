@@ -8,7 +8,7 @@
 <form method="get">
     <div class="form-group">
         <div class="input-group">
-            <input type="search" class="form-control" value=""/>
+            <input type="search" class="form-control" asp-for="SearchTerm"/>
             <span class="input-group-btn">
                 <button class="btn btn-block">
                     Search
@@ -25,6 +25,13 @@
             <td>@restaurant.Name</td>
             <td>@restaurant.Location</td>
             <td>@restaurant.Cuisine</td>
+            <td>
+                <a class="btn btn-info"
+                   asp-page="./Detail"
+                   asp-route-rid="@restaurant.Id">
+                    Get Details
+                </a>
+            </td>
         </tr>
     }
 </table>
