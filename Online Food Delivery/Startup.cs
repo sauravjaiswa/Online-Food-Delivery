@@ -29,7 +29,7 @@ namespace Online_Food_Delivery
             {
                 options.UseSqlServer(Configuration.GetConnectionString("OnlineFoodDeliveryDb"));
             });
-            services.AddSingleton<IRestaurantData, InMemoryRestaurantData>();
+            services.AddScoped<IRestaurantData, SqlRestaurantData>();
             services.AddRazorPages();
         }
 
