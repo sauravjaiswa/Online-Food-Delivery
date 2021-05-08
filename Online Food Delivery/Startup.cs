@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -48,6 +49,8 @@ namespace Online_Food_Delivery
                 app.UseHsts();
             }
 
+            app.Use(SayHelloMiddleware);
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseNodeModules();
@@ -60,6 +63,21 @@ namespace Online_Food_Delivery
             {
                 endpoints.MapRazorPages();
             });
+        }
+
+        private RequestDelegate SayHelloMiddleware(RequestDelegate arg)
+        {
+            return async ctx =>
+            {
+                if(ctx.Request.Path.StartsWithSegments("/hello"))
+                {
+                    ctx.Response.WriteAsync("Hello, World!");
+                }
+                else
+                {
+                    await arg(ctx);
+                }
+            };
         }
     }
 }
